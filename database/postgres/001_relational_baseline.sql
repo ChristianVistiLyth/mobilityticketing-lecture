@@ -21,8 +21,7 @@ create table route_stops (
     route_id text not null references routes(id),
     stop_id text not null references stops(id),
     stop_sequence integer not null,
-    -- TODO: choose and add the primary key.
-    -- Explain whether a stop may occur more than once on the same route.
+    constraint route_stops_pk primary key (route_id, stop_sequence),
     constraint route_stops_sequence_positive check (stop_sequence > 0)
 );
 
