@@ -7,8 +7,15 @@ services:
       POSTGRES_PASSWORD: mobility
     ports:
       - "5432:5432"
+    # Run once, in file-name order, when the database is empty. The image only
+    # reads files placed directly in /docker-entrypoint-initdb.d, so each one is
+    # mounted from its lecture folder.
     volumes:
-      - ./database/postgres/init:/docker-entrypoint-initdb.d:ro
+      - ./lecture01/init/001_relational_baseline.sql:/docker-entrypoint-initdb.d/001_relational_baseline.sql:ro
+      - ./lecture01/init/002_seed.sql:/docker-entrypoint-initdb.d/002_seed.sql:ro
+      - ./lecture02/init/010_ticketing_draft.sql:/docker-entrypoint-initdb.d/010_ticketing_draft.sql:ro
+      - ./lecture02/init/011_ticketing_seed.sql:/docker-entrypoint-initdb.d/011_ticketing_seed.sql:ro
+      - ./lecture04/init/013_migration_fixture.sql:/docker-entrypoint-initdb.d/013_migration_fixture.sql:ro
     healthcheck:
       # TCP, not the socket: during init a temporary server answers on the socket only.
       test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U mobility -d mobility"]

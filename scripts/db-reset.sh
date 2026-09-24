@@ -1,5 +1,6 @@
 #!/bin/sh
-# Rebuild the database from database/postgres/init and apply migrations in order.
+# Rebuild the database and apply every lecture's migrations in number order.
+# Docker runs the lecture*/init/ files listed in compose.yaml on the empty database.
 #
 #   sh scripts/db-reset.sh        init scripts + every migration
 #   sh scripts/db-reset.sh 000    init scripts only (lecture 1 slice + weak ticketing schema)
@@ -21,7 +22,10 @@ esac
 docker compose down -v
 docker compose up -d --wait
 
-for file in database/postgres/migrations/*.sql; do
+# Migration numbers are unique across lectures, so sorting by file name gives the order.
+migrations=$(for f in lecture*/migrations/*.sql; do echo "$(basename "$f") $f"; done | sort | cut -d' ' -f2)
+
+for file in $migrations; do
     number=$(basename "$file" | cut -c1-3)
     if [ "$number" -gt "$last" ]; then
         break
