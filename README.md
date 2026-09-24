@@ -19,8 +19,7 @@ Connect with `docker compose exec postgres psql -U mobility -d mobility`. Each l
 
 # Compulsory Assignment 1 review guide
 
-- Group members: *to be filled in*
-- Submitted commit: *to be filled in*
+- Group members: Christian Visti Lyth
 - Setup and reset instructions: [Setup and reset](#setup-and-reset)
 
 ## Where to find the work
