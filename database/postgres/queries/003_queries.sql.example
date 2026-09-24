@@ -5,6 +5,7 @@ select
     t.status
 from trips t
 where t.route_id = :route_id
+  and t.status = 'Scheduled'
   and t.scheduled_departure_utc >= :after_utc
 order by t.scheduled_departure_utc
 limit 20;

@@ -20,15 +20,6 @@ insert into route_stops (route_id, stop_id, stop_sequence) values
     ('LINE-M2', 'STOP-KONGENS-NYTORV', 2),
     ('LINE-M2', 'STOP-AIRPORT', 3),
     ('LINE-5C', 'STOP-CENTRAL', 1),
-    ('LINE-5C', 'STOP-NORREPORT', 2)
-on conflict do nothing;
-
-insert into trips (
-    id, route_id, service_date,
-    scheduled_departure_utc, status
-) values
-    ('TRIP-M2-20260429-0800', 'LINE-M2', '2026-04-29', '2026-04-29T06:00:00Z', 'Scheduled'),
-    ('TRIP-M2-20260429-0830', 'LINE-M2', '2026-04-29', '2026-04-29T06:30:00Z', 'Scheduled'),
-    ('TRIP-5C-20260429-0810', 'LINE-5C', '2026-04-29', '2026-04-29T06:10:00Z', 'Scheduled'),
-    ('TRIP-5C-20260429-0840', 'LINE-5C', '2026-04-29', '2026-04-29T06:40:00Z', 'Scheduled')
-on conflict do nothing;
+    ('LINE-5C', 'STOP-NORREPORT', 2),
+    ('LINE-5C', 'STOP-KONGENS-NYTORV', 3)
+on conflict (route_id, stop_sequence) do nothing;
